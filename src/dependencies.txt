@@ -1,0 +1,6 @@
+pydicom
+nibabel
+dcm2niix
+SimpleITK
+numpy
+antspyx

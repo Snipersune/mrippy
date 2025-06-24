@@ -1,0 +1,4 @@
+venv
+unused*
+*.DS_store
+*acpcdetect*
