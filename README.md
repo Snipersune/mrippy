@@ -1,4 +1,4 @@
-# Brain MRI Preprocessing Pipeline
+# MRI Preprocessing Tool
 The main purpose of this python script is to perform DICOM to nifti conversion. By default, ACPC aligment and bias field correction (bfc) are also performed. The processing order is: 'dcm2nii->acpc->bfc', but any of the steps can be skipped through the use of command line flags (described in the 'How to use' section).
 
 ## Setup process
