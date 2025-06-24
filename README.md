@@ -33,8 +33,10 @@ Default option is 'n'. Multiple steps can be specified by writing a sequence of 
 - --decap - ```--decap <fac>``` will 'decapitate' volume by setting bottom ```<fac>``` percent of slices to 0 and shift the remaining volume down by half the amount removed to center it. Is performed prior to ACPC alignment.
 - --bfcFac - Shrink factor for bias field correction. Computes correction on a lower resolution image shrunken by <bfcFac> in all directions to reduce computational load and increased speed, at the expense of accuracy. Deafult is 4.
 
-### Errors and 
+### Errors
+#### Installation errors 
 sudo apt-get install libatlas3-base
+
 
 
 
