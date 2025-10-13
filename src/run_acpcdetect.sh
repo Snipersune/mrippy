@@ -1,11 +1,8 @@
 #!/bin/bash
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-        export ARTHOME=$PWD/src/acpcdetect_V2.2_macOS_Sierra_10.12.6
-elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        export ARTHOME=$PWD/src/acpcdetect_V2.2_Linux_x86_64_Ubuntu_22.04.01
-elif [[ "$OSTYPE" == "cygwin" ]]; then
-        export ARTHOME=$PWD/src/acpcdetect_V2.2_Linux_x86_64_Ubuntu_22.04.01
+if [[ ! -v ARTHOME ]]; then
+        echo "To run acpcdetect the variable 'ARTHOME' is expected to exist (see installation guide for acpcdetect). "
+        exit 1
 fi
 
 export PATH=$ARTHOME/bin:$PATH
