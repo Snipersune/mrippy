@@ -26,11 +26,11 @@ if [[ "$FILE_LAST_EXT" == "gz" ]];
 then
         gzip -d -k ${IN_FILE}
         UNZIP_FILE=${FILE_NAME}".nii"
-        acpcdetect -i ${UNZIP_FILE} -nopng -notxt -rvsps 30
+        acpcdetect -i ${UNZIP_FILE} -nopng -rvsps 30
         rm ${UNZIP_FILE}
         ACPC_FILE=${FILE_NAME}"_RAS.nii"
         gzip ${ACPC_FILE}
 else
-        acpcdetect -i ${IN_FILE} -nopng -notxt -rvsps 30
+        acpcdetect -i ${IN_FILE} -nopng -rvsps 30
 fi
 
