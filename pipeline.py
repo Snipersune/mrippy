@@ -44,7 +44,6 @@ def nii2short(fname):
 
     nibSaveNifti(new_data, image.affine, image.header, fname)
 
-
 def shortify_nifti(indir):
     for fof in os.listdir(indir):
         loop_indir = os.path.join(indir, fof)
@@ -137,12 +136,14 @@ def contains_files_only(indir):
             return False
     return True
 
-
 def dcm2nii(indir, outdir, do_zip):
-    if not os.path.exists(outdir):
-        os.mkdir(outdir)
+    # List before adding outdir if outdir is subfolder of indir
+    dir_content = os.listdir(indir)
 
-    for fof in os.listdir(indir):
+    if not os.path.exists(outdir):
+        os.makedirs(outdir, exist_ok=True)
+
+    for fof in dir_content:
         loop_indir = os.path.join(indir, fof)
         loop_outdir = os.path.join(outdir, fof)
         if not os.path.isdir(loop_indir):
@@ -162,16 +163,18 @@ def dcm2nii(indir, outdir, do_zip):
             dcm2nii(loop_indir, loop_outdir, do_zip)
 
 
-
 # ACPC Alignment funcs
 def run_acpc_on_file_nii(input_file):
     subprocess.run([os.path.join(os.getcwd(), "src", "run_acpcdetect.sh"), "-i", input_file])
 
 def run_acpc(indir, outdir):
-    if not os.path.exists(outdir):
-        os.mkdir(outdir)
+     # List before adding outdir if outdir is subfolder of indir
+    dir_content = os.listdir(indir)
 
-    for fof in os.listdir(indir):
+    if not os.path.exists(outdir):
+        os.makedirs(outdir, exist_ok=True)
+
+    for fof in dir_content:
         loop_indir = os.path.join(indir, fof)
         loop_outdir = os.path.join(outdir, fof)
         if os.path.isdir(loop_indir):
@@ -191,7 +194,6 @@ def run_acpc(indir, outdir):
             print("Running ACPC alignment on file:", loop_indir)
             run_acpc_on_file_nii(loop_outdir)
             os.remove(loop_outdir)
-
 
 
 # Bias field correction funcs
@@ -225,13 +227,15 @@ def run_bfc_on_file_nii(input_file, output_file, shrink_fac):
             corrected_image_full_resolution = sitk.Cast(corrected_image_full_resolution, sitk.sitkFloat64)
 
     sitk.WriteImage(corrected_image_full_resolution, output_file)
-    
 
 def run_bfc(indir, outdir, shrink_fac):
-    if not os.path.exists(outdir):
-        os.mkdir(outdir)
+    # List before adding outdir if outdir is subfolder of indir
+    dir_content = os.listdir(indir)
 
-    for fof in os.listdir(indir):
+    if not os.path.exists(outdir):
+        os.makedirs(outdir, exist_ok=True)
+
+    for fof in dir_content:
         loop_indir = os.path.join(indir, fof)
         loop_outdir = os.path.join(outdir, fof)
         if os.path.isdir(loop_indir):
@@ -259,7 +263,6 @@ def main():
     parser.add_argument('--decap', help="Usage: --decap <fac>. Will 'decapitate' volume by setting bottom <fac> percent of slices to 0. Is performed prior to ACPC alignment.", type=float)
     parser.add_argument('--bfcFac', help="Shrink factor for bias field correction. Computes correction on a lower resolution image shrunken by <bfcFac> in all directions to reduce computational load and increased speed, at the expense of accuracy.", type=int, default=4)
 
-
     args = parser.parse_args()
 
     pipeline_input = args.inDir
@@ -269,9 +272,9 @@ def main():
         print("Input directory not found. Program terminated!")
         return
     
-    if not os.path.isdir(pipeline_output):
-        os.mkdir(pipeline_output)
-        print("Output directory created")
+    #if not os.path.isdir(pipeline_output):
+    #    os.mkdir(pipeline_output)
+    #    print("Output directory created")
 
     proc_order = args.do
     done_opts = ""
