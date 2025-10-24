@@ -7,8 +7,6 @@ fi
 
 export PATH=$ARTHOME/bin:$PATH
 
-DO_ZIP=false
-
 while getopts i:z flag
 do
     case "${flag}" in
