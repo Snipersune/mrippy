@@ -16,7 +16,7 @@ If the following steps could be followed without errors, the script is ready to 
 ## How to use
 To use the script, open a terminal and make sure you move to the directory where the script is located. If the virtual environment is not active, enter ```source venv/bin/activate``` to activate it.
 
-The baseline usage of the script is of the form ```python3 pipeline.py -i <INPUT_DIR> -o <OUTPUT_DIR>```, where ```<INPUT_DIR>``` and  ```<OUTPUT_DIR>``` are the absolute or relative paths of the input and output directories respectively. This will perform the default processing steps as mentioned above ('dcm2nii->acpc->bfc'). 
+The baseline usage of the script is of the form ```python3 pipeline.py -i <INPUT_DIR> -o <OUTPUT_DIR>```, where ```<INPUT_DIR>``` and  ```<OUTPUT_DIR>``` are the absolute or relative paths of the input and output directories respectively. This will perform the default step of DICOM to nifti conversion. 
 
 Below are the flags recognized by the script, some of which can be used to skip desired processing steps.
 
@@ -29,8 +29,8 @@ Below are the flags recognized by the script, some of which can be used to skip 
   - 'n' - dcm to nifti conversion.
   - 'b' - Bias field correction.
   - 'a' - ACPC alignment.\
-Default option is 'n'. Multiple steps can be specified by writing a sequence of options, e.g. 'nab', where the steps are performed in the order of the string.
-- --decap - ```--decap <fac>``` will 'decapitate' volume by setting bottom ```<fac>``` percent of slices to 0 and shift the remaining volume down by half the amount removed to center it. Is performed prior to ACPC alignment.
+Default option is 'n'. Multiple steps can be specified by writing a sequence of options, e.g. 'nab', where the steps are performed according to string order.
+- --decap - ```--decap <fac>``` will 'decapitate' volume by setting bottom ```<fac>``` percent of slices to 0 and shift the remaining volume down by half the amount removed to center it. Is performed prior to ACPC alignment flag is used.
 - --bfcFac - Shrink factor for bias field correction. Computes correction on a lower resolution image shrunken by <bfcFac> in all directions to reduce computational load and increased speed, at the expense of accuracy. Deafult is 4.
 
 ### Errors
